@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>JustTalk</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <style>
+    /* 폰트 로딩 */
+    @font-face {
+      font-family: 'GumiIndustryTTF';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiIndustryTTF.woff2') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    /* 전체 글꼴을 GumiIndustryTTF로 설정 */
+    body {
+      font-family: 'GumiIndustryTTF', sans-serif;
+      background-color: #e0e0e0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+
+    /* 화면 중앙에 내용 정렬 */
+    .container {
+      background-color: #d3d3d3;
+      width: 500px;
+      padding: 20px;
+      border: 1px solid #000;
+    }
+
+    .logo {
+      text-align: left;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .chat-button {
+      height: 50px;
+      background-color: white;
+      border: 1px solid #d3d3d3;
+      border-radius: 5px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chat-button:hover {
+      background-color: #f1f1f1;
+    }
+
+    #chatArea {
+      height: 300px;
+      overflow-y: scroll;
+      border: 1px solid black;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="logo">로고</div>
+  <div class="button-container">
+    <div class="chat-button" data-toggle="modal" data-target="#chatModal">Open Chat 1</div>
+    <div class="chat-button" data-toggle="modal" data-target="#chatModal">Open Chat 2</div>
+    <div class="chat-button" data-toggle="modal" data-target="#chatModal">Open Chat 3</div>
+    <div class="chat-button" data-toggle="modal" data-target="#chatModal">Open Chat 4</div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="chatModalLabel">Chat with AI</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <label for="username">Username:</label>
+          <input type="text" id="username" />
+          <button id="connectBtn" class="btn btn-secondary">Connect</button>
+        </div>
+        <br/>
+        <div id="chatArea"></div>
+        <br/>
+        <div>
+          <textarea id="message" rows="3" cols="40"></textarea>
+          <br/>
+          <button id="sendBtn" class="btn btn-primary">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var stompClient = null;
+
+  function connect() {
+    var socket = new SockJS('/chat-websocket');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function(frame) {
+      console.log('Connected: ' + frame);
+      stompClient.subscribe('/topic/messages', function(response) {
+        showMessage(JSON.parse(response.body));
+      });
+    });
+  }
+
+  function sendMessage() {
+    var messageContent = $('#message').val();
+    var username = $('#username').val();
+    var chatMessage = {
+      content: messageContent,
+      sender: username
+    };
+    stompClient.send('/app/chat.sendMessage', {}, JSON.stringify(chatMessage));
+    $('#message').val('');
+    showUserMessage(chatMessage); // 사용자의 메시지를 바로 표시
+  }
+
+  function showMessage(message) {
+    var messageElement = $('<div class="message ai-message"></div>');
+    messageElement.text(message.sender + ': ' + message.content);
+    $('#chatArea').append(messageElement);
+    $('#chatArea').scrollTop($('#chatArea')[0].scrollHeight); // 스크롤을 아래로
+  }
+
+  function showUserMessage(message) {
+    var messageElement = $('<div class="message user-message"></div>');
+    messageElement.text(message.sender + ': ' + message.content);
+    $('#chatArea').append(messageElement);
+    $('#chatArea').scrollTop($('#chatArea')[0].scrollHeight); // 스크롤을 아래로
+  }
+
+  $(function () {
+    $('form').on('submit', function (e) {
+      e.preventDefault();
+    });
+    $('#connectBtn').click(function() {
+      connect();
+    });
+    $('#sendBtn').click(function() {
+      sendMessage();
+    });
+  });
+</script>
+</body>
+</html>
