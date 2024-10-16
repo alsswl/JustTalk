@@ -3,8 +3,8 @@ package com.aichat.demo.infrastructure;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
-import com.aichat.demo.infrastructure.dto.Message;
-import com.aichat.demo.infrastructure.dto.RequestToAi;
+import com.aichat.demo.dto.Message;
+import com.aichat.demo.dto.RequestToAi;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,6 +26,7 @@ public class OpenAiService {
   private final String chatGptUrl = "https://api.openai.com/v1/chat/completions";
   private final RestTemplate restTemplate;
   private final ObjectMapper objectMapper;
+
   @Value("${chatgpt.api-key}")
   private String gptKey;
 
@@ -63,5 +64,7 @@ public class OpenAiService {
     HttpEntity<String> requestEntity = new HttpEntity<>(jsonBody, headers);
     return restTemplate.exchange(chatGptUrl, HttpMethod.POST, requestEntity, Object.class);
   }
+
+
 
 }

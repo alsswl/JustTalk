@@ -1,6 +1,5 @@
-package com.aichat.demo.infrastructure.dto;
+package com.aichat.demo.dto;
 
-import com.aichat.demo.infrastructure.dto.Message;
 import java.util.List;
 
 public record RequestToAi(

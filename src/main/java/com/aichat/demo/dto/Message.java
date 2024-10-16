@@ -1,4 +1,4 @@
-package com.aichat.demo.infrastructure.dto;
+package com.aichat.demo.dto;
 
 public record Message(
     String role,
