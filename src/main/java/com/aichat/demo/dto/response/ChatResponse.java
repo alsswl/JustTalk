@@ -1,4 +1,4 @@
-package com.aichat.demo.dto;
+package com.aichat.demo.dto.response;
 
 import lombok.Data;
 

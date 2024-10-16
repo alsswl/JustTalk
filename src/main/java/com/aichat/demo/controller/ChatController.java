@@ -1,6 +1,6 @@
 package com.aichat.demo.controller;
 
-import com.aichat.demo.dto.ChatRequest;
+import com.aichat.demo.dto.request.ChatRequest;
 import com.aichat.demo.service.ChatService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.stereotype.Controller;

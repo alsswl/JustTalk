@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JustTalk Login</title>
+  <style>
+
+    @font-face {
+      font-family: 'RixYeoljeongdo_Regular';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2102-01@1.0/RixYeoljeongdo_Regular.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    body {
+      font-family: 'RixYeoljeongdo_Regular', sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    label {
+      font-size: 14px;
+      color: #333;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="email"],
+    input[type="password"],
+    input[type="text"] {
+      width: 90%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    button {
+      font-family: 'RixYeoljeongdo_Regular', sans-serif;
+      width: 98%;
+      padding: 10px;
+      background-color: white; /* 흰색 배경 */
+      color: #333; /* 글씨 색상 */
+      border: 1px solid #ccc; /* 버튼 테두리 */
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #e0e0e0; /* 마우스 오버 시 살짝 회색 */
+    }
+
+    a {
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+      color: #333;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>JUSTTALK</h2>
+  <form id="loginForm">
+    <label for="email">아이디 (이메일):</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="password">비밀번호:</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">로그인</button>
+  </form>
+
+  <a href="/signup">회원가입</a>
+</div>
+
+<script>
+  document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    fetch("/api/members/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email: email, password: password })
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.headers.get("Authorization"); // JWT 토큰 가져오기
+      } else {
+        throw new Error("로그인 실패");
+      }
+    })
+    .then(token => {
+      // JWT 토큰을 localStorage에 저장
+      localStorage.setItem("jwtToken", token);
+
+      // 로그인 성공 시 mainChat 페이지로 이동
+      window.location.href = "/mainChat";
+    })
+    .catch(error => {
+      alert("아이디 또는 비밀번호가 잘못되었습니다.");
+    });
+  });
+</script>
+</body>
+</html>

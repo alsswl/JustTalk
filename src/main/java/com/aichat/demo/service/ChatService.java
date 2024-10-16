@@ -1,7 +1,7 @@
 package com.aichat.demo.service;
 
-import com.aichat.demo.dto.ChatRequest;
-import com.aichat.demo.dto.ChatResponse;
+import com.aichat.demo.dto.request.ChatRequest;
+import com.aichat.demo.dto.response.ChatResponse;
 import com.aichat.demo.infrastructure.OpenAiService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;

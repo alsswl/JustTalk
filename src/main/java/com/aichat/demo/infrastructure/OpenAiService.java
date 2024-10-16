@@ -3,8 +3,8 @@ package com.aichat.demo.infrastructure;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
-import com.aichat.demo.dto.Message;
-import com.aichat.demo.dto.RequestToAi;
+import com.aichat.demo.dto.request.Message;
+import com.aichat.demo.dto.request.RequestToAi;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
