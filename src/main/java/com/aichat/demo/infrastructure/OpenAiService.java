@@ -127,6 +127,25 @@ public class OpenAiService {
 
   }
 
+  public String getResponseForReport(String allContent)
+      throws JsonProcessingException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    Message message1 = new Message("user", allContent + "이건 사용자와 챗봇이 나눈 대화야. 사용자는 사회성이 부족한 것 때문에 고민하고 있어서 너는 이 대화내용을 보고 피드백을 해줘야해. 개선사항과 칭찬해줄 사항을 적절하게 섞어서 답변해줘. 너무 길게 이야기하지 말고 5문장 내외로 이야기해줘");
+
+    List<Message> messageList = new LinkedList<>();
+    messageList.add(message1);
+
+    ResponseEntity<Object> feedBack = sandMessageToAi(messageList);
+    String responseBody = objectMapper.writeValueAsString(feedBack.getBody());
+
+    JsonNode rootNode = objectMapper.readTree(responseBody);
+    String extractedContent = rootNode.path("choices").get(0).path("message").path("content")
+        .asText();
+
+    return extractedContent;
+
+  }
+
 //  public String getResponseFromAi(String content) throws JsonProcessingException {
 //    ObjectMapper objectMapper = new ObjectMapper();
 //    ResponseEntity<Object> feedBack = sandMessageToAi(content);

@@ -25,10 +25,13 @@ public class Member {
   private String email;
   private String password;
   @Lob
-  private String nowContent = "";
-
-  @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private List<Report> reports;
+  private String Content1 = "";
+  @Lob
+  private String Content2 = "";
+  @Lob
+  private String Content3 = "";
+  @Lob
+  private String Content4 = "";
 
   @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<CommunityPost> communityPosts;
@@ -37,7 +40,6 @@ public class Member {
     this.email = email;
     this.password = password;
     this.name = name;
-    this.reports = reports;
     this.communityPosts = communityPosts;
   }
 

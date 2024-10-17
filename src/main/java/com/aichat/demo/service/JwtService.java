@@ -66,6 +66,8 @@ public class JwtService {
 
   public String getMemberEmail(String token) {
     String accessToken = token;
+    token.replace("Bearer ", "");
+    System.out.println(token);
     checkTokenValidation(accessToken);
     Jws<Claims> jws;
 
