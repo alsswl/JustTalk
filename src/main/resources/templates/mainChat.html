@@ -10,13 +10,7 @@
 
   <style>
     /* 추가: chatArea 스타일 */
-    #chatArea {
-      height: 300px; /* 원하는 높이 */
-      overflow-y: auto; /* 세로 스크롤 활성화 */
-      border: 1px solid #ccc; /* 테두리 */
-      padding: 10px; /* 내부 여백 */
-      background-color: #f9f9f9; /* 배경색 */
-    }
+
 
     .message {
       margin-bottom: 10px;
@@ -24,12 +18,12 @@
 
     .user-message {
       text-align: right;
-      color: blue;
+      color: black;
     }
 
     .ai-message {
       text-align: left;
-      color: green;
+      color: #4169e1;
     }
   </style>
 
@@ -53,6 +47,16 @@
       src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
       font-weight: normal;
       font-style: normal;
+    }
+
+    .chat-area {
+      font-family: 'GmarketSansMedium', sans-serif; /* 전체 폰트와 동일하게 설정 */
+      font-size: 0.8rem; /* 원하는 글씨 크기 */
+      height: 300px; /* 원하는 높이 */
+      overflow-y: auto; /* 세로 스크롤 활성화 */
+      border: 1px solid #ccc; /* 테두리 */
+      padding: 10px; /* 내부 여백 */
+      background-color: #f9f9f9; /* 배경색 */
     }
 
     body {
@@ -162,8 +166,13 @@
 
     .view-more {
       text-align: right;
-      color: blue;
+      color: #4169e1;
       cursor: pointer;
+    }
+
+    .textarea{
+      font-family: 'GmarketSansMedium', sans-serif; /* 전체 폰트와 동일하게 설정 */
+      font-size: 0.8rem; /* 원하는 글씨 크기 */
     }
 
     .combined-section {
@@ -192,9 +201,15 @@
 
     .view-more {
       text-align: right;
-      color: blue;
+      color: #4169e1;
       cursor: pointer;
     }
+    .img-container {
+      margin-top: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
 
   </style>
 </head>
@@ -204,24 +219,24 @@
 
   <!-- Chat Section -->
   <div class="chat-options">
-    <div class="chat-button" data-toggle="modal" data-target="#chatModal">
+    <div class="chat-button" data-toggle="modal" data-target="#chatModal1">
       <img src="/icons/monkey-animal-icon.png" alt="Icon" />
       <h2>우끼끼</h2>
       <p>저는 여러분과 처음 만나는 친구입니다.</p>
       <p>서로 알아가는 시간 가져요!</p>
     </div>
-    <div class="chat-button" data-toggle="modal" data-target="#chatModal">
+    <div class="chat-button" data-toggle="modal" data-target="#chatModal2">
       <img src="/icons/seal-icon.png" alt="Icon" />
       <h2>아웅</h2>
       <p>저는 여러분의 오랜 친구입니다.</p>
       <p>저와 일상대화 나누어요!</p>
     </div>
-    <div class="chat-button" data-toggle="modal" data-target="#chatModal">
+    <div class="chat-button" data-toggle="modal" data-target="#chatModal3">
       <img src="/icons/elephant-icon.png" alt="Icon" />
       <h2>뿌뿌</h2>
       <p>제가 제시하는 단어를 설명해주세요.</p>
     </div>
-    <div class="chat-button" data-toggle="modal" data-target="#chatModal">
+    <div class="chat-button" data-toggle="modal" data-target="#chatModal4">
       <img src="/icons/chicken-rooster-icon.png" alt="Icon" />
       <h2>꼬꼬</h2>
       <p>저는 여러분을 평가하지 않습니다.</p>
@@ -251,29 +266,118 @@
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
+<div class="modal fade" id="chatModal1" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="chatModalLabel">Chat with AI</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title" id="chatModalLabel">우끼끼</h5>
+        <button id = "close1" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <p></p>
+      <div class="img-container">
+        <img src="/icons/monkey-animal-icon.png" alt="Icon" width="50" height="50" />
+      </div>
+      <p>안녕하세요 저는 우끼끼입니다</p>
+      <p>저에게 먼저 인사해주세요!</p>
       <div class="modal-body">
-        <div>
-          <label for="username">Username:</label>
-          <input type="text" id="username" />
-          <button id="connectBtn" class="btn btn-secondary">Connect</button>
-        </div>
         <br/>
-        <div id="chatArea"></div> <!-- 여기서 채팅 메시지 표시 -->
+        <div id="chatArea1" class="chat-area"></div> <!-- 여기서 채팅 메시지 표시 -->
         <br/>
         <div>
-          <textarea id="message" rows="3" cols="40"></textarea>
+          <textarea id="message1" class="textarea" rows="3" cols="40"></textarea>
           <br/>
-          <button id="sendBtn" class="btn btn-primary">Send</button>
+          <button id="sendBtn1" class="btn btn-primary">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="chatModal2" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="chatModalLabe2">아웅</h5>
+        <button id = "close2" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <p></p>
+      <div class="img-container">
+        <img src="/icons/seal-icon.png" alt="Icon" width="50" height="50" />
+      </div>
+      <p>안녕 나는 아웅이야</p>
+      <p>나에게 먼저 안녕! 인사해줘</p>
+      <div class="modal-body">
+        <br/>
+        <div id="chatArea2" class="chat-area"></div> <!-- 여기서 채팅 메시지 표시 -->
+        <br/>
+        <div>
+          <textarea id="message2" class="textarea" rows="3" cols="40"></textarea>
+          <br/>
+          <button id="sendBtn2" class="btn btn-primary">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="chatModal3" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="chatModalLabel3">뿌뿌</h5>
+        <button id = "close3" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <p></p>
+      <div class="img-container">
+        <img src="/icons/elephant-icon.png" alt="Icon" width="50" height="50" />
+      </div>
+      <p>안녕하세요 저는 뿌뿌입니다</p>
+      <p>전 궁금한게 많아요</p>
+      <p>제가 궁금한 것에 대해 설명해주세요</p>
+      <div class="modal-body">
+        <br/>
+        <div id="chatArea3" class="chat-area"></div> <!-- 여기서 채팅 메시지 표시 -->
+        <br/>
+        <div>
+          <textarea id="message3" class="textarea" rows="3" cols="40"></textarea>
+          <br/>
+          <button id="sendBtn3" class="btn btn-primary">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="chatModal4" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="chatModalLabel4">꼬꼬</h5>
+        <button id = "close4" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <p></p>
+      <div class="img-container">
+        <img src="/icons/chicken-rooster-icon.png" alt="Icon" width="50" height="50" />
+      </div>
+      <p>안녕하세요 저는 꼬꼬입니다</p>
+      <p>전 다른 친구들과 다르게 여러분과 리포트 없이 쭉 이야기할 수 있어요</p>
+      <div class="modal-body">
+        <br/>
+        <div id="chatArea4" class="chat-area"></div> <!-- 여기서 채팅 메시지 표시 -->
+        <br/>
+        <div>
+          <textarea id="message4" class="textarea" rows="3" cols="40"></textarea>
+          <br/>
+          <button id="sendBtn4" style="background-color: #4169e1; border-color: #4169e1;" class="btn btn-primary">send</button>
         </div>
       </div>
     </div>
@@ -293,14 +397,68 @@
   }
 
   // 연결 함수
-  function connect() {
+  function connect1() {
     if (!stompClient || !stompClient.connected) {
       var socket = new SockJS('/chat-websocket');
       stompClient = Stomp.over(socket);
       stompClient.connect({}, function(frame) {
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/messages', function(response) {
-          showMessage(JSON.parse(response.body));
+          showMessage1(JSON.parse(response.body));
+        });
+      });
+
+      // 사용자 이름을 localStorage에 저장
+      var username = $('#username').val();
+      localStorage.setItem('username', username); // 입력된 사용자 이름 저장
+    } else {
+      console.log('Already connected');
+    }
+  }
+  function connect2() {
+    if (!stompClient || !stompClient.connected) {
+      var socket = new SockJS('/chat-websocket');
+      stompClient = Stomp.over(socket);
+      stompClient.connect({}, function(frame) {
+        console.log('Connected: ' + frame);
+        stompClient.subscribe('/topic/messages', function(response) {
+          showMessage2(JSON.parse(response.body));
+        });
+      });
+
+      // 사용자 이름을 localStorage에 저장
+      var username = $('#username').val();
+      localStorage.setItem('username', username); // 입력된 사용자 이름 저장
+    } else {
+      console.log('Already connected');
+    }
+  }
+  function connect3() {
+    if (!stompClient || !stompClient.connected) {
+      var socket = new SockJS('/chat-websocket');
+      stompClient = Stomp.over(socket);
+      stompClient.connect({}, function(frame) {
+        console.log('Connected: ' + frame);
+        stompClient.subscribe('/topic/messages', function(response) {
+          showMessage3(JSON.parse(response.body));
+        });
+      });
+
+      // 사용자 이름을 localStorage에 저장
+      var username = $('#username').val();
+      localStorage.setItem('username', username); // 입력된 사용자 이름 저장
+    } else {
+      console.log('Already connected');
+    }
+  }
+  function connect4() {
+    if (!stompClient || !stompClient.connected) {
+      var socket = new SockJS('/chat-websocket');
+      stompClient = Stomp.over(socket);
+      stompClient.connect({}, function(frame) {
+        console.log('Connected: ' + frame);
+        stompClient.subscribe('/topic/messages', function(response) {
+          showMessage4(JSON.parse(response.body));
         });
       });
 
@@ -312,31 +470,130 @@
     }
   }
 
-  function sendMessage() {
-    var messageContent = $('#message').val();
+  function sendMessage1() {
+    var messageContent = $('#message1').val();
     var username = $('#username').val();
+    var token = localStorage.getItem('jwtToken')
     var chatMessage = {
       content: messageContent,
-      sender: username
+      sender: username,
+      token: token
     };
-    stompClient.send('/app/chat.sendMessage', {}, JSON.stringify(chatMessage));
-    $('#message').val('');
-    showUserMessage(chatMessage); // 사용자의 메시지를 바로 표시
+    stompClient.send('/app/chat.sendMessage1', {}, JSON.stringify(chatMessage));
+    $('#message1').val('');
+    showUserMessage1(chatMessage); // 사용자의 메시지를 바로 표시
+  }
+  function sendMessage2() {
+    var messageContent = $('#message2').val();
+    var username = $('#username').val();
+    var token = localStorage.getItem('jwtToken')
+    var chatMessage = {
+      content: messageContent,
+      sender: username,
+      token : token
+    };
+    stompClient.send('/app/chat.sendMessage2', {}, JSON.stringify(chatMessage));
+    $('#message2').val('');
+    showUserMessage2(chatMessage); // 사용자의 메시지를 바로 표시
+  }
+  function sendMessage3() {
+    var messageContent = $('#message3').val();
+    var username = $('#username').val();
+    var token = localStorage.getItem('jwtToken')
+    var chatMessage = {
+      content: messageContent,
+      sender: username,
+      token : token
+    };
+    stompClient.send('/app/chat.sendMessage3', {}, JSON.stringify(chatMessage));
+    $('#message3').val('');
+    showUserMessage3(chatMessage); // 사용자의 메시지를 바로 표시
+  }
+  function sendMessage4() {
+    var messageContent = $('#message4').val();
+    var username = $('#username').val();
+    var token = localStorage.getItem('jwtToken')
+    var chatMessage = {
+      content: messageContent,
+      sender: username,
+      token : token
+    };
+    stompClient.send('/app/chat.sendMessage4', {}, JSON.stringify(chatMessage));
+    $('#message4').val('');
+    showUserMessage4(chatMessage); // 사용자의 메시지를 바로 표시
   }
 
-  function showMessage(message) {
+  function showMessage1(message) {
     var messageElement = $('<div class="message ai-message"></div>');
     messageElement.text(message.sender + ': ' + message.content);
-    $('#chatArea').append(messageElement);
-    $('#chatArea').scrollTop($('#chatArea')[0].scrollHeight); // 스크롤을 아래로
+    $('#chatArea1').append(messageElement);
+    $('#chatArea1').scrollTop($('#chatArea1')[0].scrollHeight); // 스크롤을 아래로
+  }
+  function showMessage2(message) {
+    var messageElement = $('<div class="message ai-message"></div>');
+    messageElement.text(message.sender + ': ' + message.content);
+    $('#chatArea2').append(messageElement);
+    $('#chatArea2').scrollTop($('#chatArea2')[0].scrollHeight); // 스크롤을 아래로
+  }
+  function showMessage3(message) {
+    var messageElement = $('<div class="message ai-message"></div>');
+    messageElement.text(message.sender + ': ' + message.content);
+    $('#chatArea3').append(messageElement);
+    $('#chatArea3').scrollTop($('#chatArea3')[0].scrollHeight); // 스크롤을 아래로
+  }
+  function showMessage4(message) {
+    var messageElement = $('<div class="message ai-message"></div>');
+    messageElement.text(message.sender + ': ' + message.content);
+    $('#chatArea4').append(messageElement);
+    $('#chatArea4').scrollTop($('#chatArea4')[0].scrollHeight); // 스크롤을 아래로
   }
 
-  function showUserMessage(message) {
+  function showUserMessage1(message) {
     var messageElement = $('<div class="message user-message"></div>');
     messageElement.text(message.sender + ': ' + message.content);
-    $('#chatArea').append(messageElement);
-    $('#chatArea').scrollTop($('#chatArea')[0].scrollHeight); // 스크롤을 아래로
+    $('#chatArea1').append(messageElement);
+    $('#chatArea1').scrollTop($('#chatArea1')[0].scrollHeight); // 스크롤을 아래로
   }
+  function showUserMessage2(message) {
+    var messageElement = $('<div class="message user-message"></div>');
+    messageElement.text(message.sender + ': ' + message.content);
+    $('#chatArea2').append(messageElement);
+    $('#chatArea2').scrollTop($('#chatArea2')[0].scrollHeight); // 스크롤을 아래로
+  }
+  function showUserMessage3(message) {
+    var messageElement = $('<div class="message user-message"></div>');
+    messageElement.text(message.sender + ': ' + message.content);
+    $('#chatArea3').append(messageElement);
+    $('#chatArea3').scrollTop($('#chatArea3')[0].scrollHeight); // 스크롤을 아래로
+  }
+  function showUserMessage4(message) {
+    var messageElement = $('<div class="message user-message"></div>');
+    messageElement.text(message.sender + ': ' + message.content);
+    $('#chatArea4').append(messageElement);
+    $('#chatArea4').scrollTop($('#chatArea4')[0].scrollHeight); // 스크롤을 아래로
+  }
+
+  function disconnect() {
+    if (stompClient && stompClient.connected) {
+      stompClient.disconnect(function() {
+        console.log("Disconnected from WebSocket");
+      });
+    }
+  }
+
+  // 버튼 클릭 시 연결 끊기
+  document.getElementById("close1").addEventListener("click", function() {
+    disconnect();
+  });
+  document.getElementById("close2").addEventListener("click", function() {
+    disconnect();
+  });
+  document.getElementById("close3").addEventListener("click", function() {
+    disconnect();
+  });
+  document.getElementById("close4").addEventListener("click", function() {
+    disconnect();
+  });
 
   $(function () {
     // 페이지 로드 시 저장된 사용자 이름 불러오기
@@ -347,12 +604,30 @@
     });
 
     // 모달이 열릴 때 자동으로 connect 호출
-    $('#chatModal').on('shown.bs.modal', function () {
-      connect();
+    $('#chatModal1').on('shown.bs.modal', function () {
+      connect1();
+    });
+    $('#chatModal2').on('shown.bs.modal', function () {
+      connect2();
+    });
+    $('#chatModal3').on('shown.bs.modal', function () {
+      connect3();
+    });
+    $('#chatModal4').on('shown.bs.modal', function () {
+      connect4();
     });
 
-    $('#sendBtn').click(function() {
-      sendMessage();
+    $('#sendBtn1').click(function() {
+      sendMessage1();
+    });
+    $('#sendBtn2').click(function() {
+      sendMessage2();
+    });
+    $('#sendBtn3').click(function() {
+      sendMessage3();
+    });
+    $('#sendBtn4').click(function() {
+      sendMessage4();
     });
   });
 </script>
