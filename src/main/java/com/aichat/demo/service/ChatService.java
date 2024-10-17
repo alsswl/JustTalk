@@ -18,6 +18,7 @@ public class ChatService {
   private final OpenAiService openAiService;
   private final JwtService jwtService;
   private final MemberRepository memberRepository;
+  private final ReportService reportService;
 
   public void processMessage1(ChatRequest.ChatMessageDTO requestDTO) throws JsonProcessingException {
     String userMessage = requestDTO.getContent();
@@ -31,16 +32,18 @@ public class ChatService {
     }
 
     Member member = memberRepository.findByEmail(email).get();
-    String memberContent = member.getNowContent();
+    String memberContent = member.getContent1();
     String aiResponse = openAiService.getResponseFromWogigi(userMessage,memberContent);
-    memberContent = memberContent + userMessage + aiResponse;
+    memberContent = memberContent + "사용자:" + userMessage + "챗봇:" + aiResponse;
 
-    if (memberContent.length() > 5000) {
-      //리포트
-      memberContent = memberContent.substring(memberContent.length() - 5000);
+    if (memberContent.length() > 50) {
+      String report = reportService.makeReport(member,"우끼끼",memberContent);
+      memberContent = "";
+      aiResponse = "아쉽지만 내 기억력은 여기까지야. 내가 너와의 대화가 어땠는지 이야기해줄게!\n" + report +"\n내 리포트는 나의 리포트에서 다시 한번 확인할 수 있어 즐거웠어 다음에 또 만나!";
+      System.out.println(aiResponse);
     }
 
-    member.setNowContent(memberContent);
+    member.setContent1(memberContent);
     memberRepository.save(member);
 
     ChatResponse.ChatMessageDTO aiMessage = new ChatResponse.ChatMessageDTO(aiResponse);
@@ -59,16 +62,18 @@ public class ChatService {
     }
 
     Member member = memberRepository.findByEmail(email).get();
-    String memberContent = member.getNowContent();
+    String memberContent = member.getContent2();
     String aiResponse = openAiService.getResponseFromAung(userMessage,memberContent);
-    memberContent = memberContent + userMessage + aiResponse;
+    memberContent = memberContent + "사용자:" + userMessage + "챗봇:" + aiResponse;
 
-    if (memberContent.length() > 5000) {
-      //리포트
-      memberContent = memberContent.substring(memberContent.length() - 5000);
+    if (memberContent.length() > 500) {
+      String report = reportService.makeReport(member,"아웅",memberContent);
+      memberContent = "";
+      aiResponse = "아쉽지만 내 기억력은 여기까지야. 내가 너와의 대화가 어땠는지 이야기해줄게!\n" + report +"\n내 리포트는 나의 리포트에서 다시 한번 확인할 수 있어 즐거웠어 다음에 또 만나!";
+      System.out.println(aiResponse);
     }
 
-    member.setNowContent(memberContent);
+    member.setContent2(memberContent);
     memberRepository.save(member);
 
     ChatResponse.ChatMessageDTO aiMessage = new ChatResponse.ChatMessageDTO(aiResponse);
@@ -87,16 +92,18 @@ public class ChatService {
     }
 
     Member member = memberRepository.findByEmail(email).get();
-    String memberContent = member.getNowContent();
+    String memberContent = member.getContent3();
     String aiResponse = openAiService.getResponseFromBuBu(userMessage,memberContent);
-    memberContent = memberContent + userMessage + aiResponse;
+    memberContent = memberContent + "사용자:" + userMessage + "챗봇:" + aiResponse;
 
-    if (memberContent.length() > 5000) {
-      //리포트
-      memberContent = memberContent.substring(memberContent.length() - 5000);
+    if (memberContent.length() > 500) {
+      String report = reportService.makeReport(member,"뿌뿌",memberContent);
+      memberContent = "";
+      aiResponse = "아쉽지만 내 기억력은 여기까지야. 내가 너와의 대화가 어땠는지 이야기해줄게!\n" + report +"\n내 리포트는 나의 리포트에서 다시 한번 확인할 수 있어 즐거웠어 다음에 또 만나!";
+      System.out.println(aiResponse);
     }
 
-    member.setNowContent(memberContent);
+    member.setContent3(memberContent);
     memberRepository.save(member);
 
     ChatResponse.ChatMessageDTO aiMessage = new ChatResponse.ChatMessageDTO(aiResponse);
@@ -116,7 +123,7 @@ public class ChatService {
     }
 
     Member member = memberRepository.findByEmail(email).get();
-    String memberContent = member.getNowContent();
+    String memberContent = member.getContent4();
     String aiResponse = openAiService.getResponseFromCoCo(userMessage,memberContent);
     memberContent = memberContent + userMessage + aiResponse;
 
@@ -124,7 +131,7 @@ public class ChatService {
       memberContent = memberContent.substring(memberContent.length() - 5000);
     }
 
-    member.setNowContent(memberContent);
+    member.setContent4(memberContent);
     memberRepository.save(member);
 
     ChatResponse.ChatMessageDTO aiMessage = new ChatResponse.ChatMessageDTO(aiResponse);
