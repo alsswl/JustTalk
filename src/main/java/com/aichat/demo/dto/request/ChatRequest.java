@@ -10,6 +10,7 @@ public class ChatRequest {
     private String content;
     // 클라이언트 이름
     private String sender;
+    private String token;
 
   }
 
