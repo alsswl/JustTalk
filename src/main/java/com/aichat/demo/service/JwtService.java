@@ -63,4 +63,23 @@ public class JwtService {
     return jws.getPayload()
         .get("email", String.class);
   }
+
+  public String getMemberEmail(String token) {
+    String accessToken = token;
+    checkTokenValidation(accessToken);
+    Jws<Claims> jws;
+
+    try {
+      jws = Jwts.parser()
+          .verifyWith(key)
+          .build()
+          .parseSignedClaims(accessToken);
+    } catch (JwtException e) {
+      throw new UnauthorizedException("토큰이 유효하지 않습니다.");
+    }
+
+    return jws.getPayload()
+        .get("email", String.class);
+  }
+
 }
