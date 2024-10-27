@@ -8,10 +8,8 @@ import com.aichat.demo.entity.Member;
 import com.aichat.demo.entity.Report;
 import com.aichat.demo.exception.UnauthorizedException;
 import com.aichat.demo.repository.MemberRepository;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
+import org.springframework.stereotype.Service;
 
 @Service
 public class MemberService {

@@ -3,12 +3,13 @@ package com.aichat.demo.controller;
 import com.aichat.demo.dto.request.MemberLoginRequest;
 import com.aichat.demo.dto.request.MemberRequest;
 import com.aichat.demo.service.MemberService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/api/members")

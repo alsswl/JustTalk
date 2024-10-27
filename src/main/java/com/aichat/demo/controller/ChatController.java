@@ -2,17 +2,14 @@ package com.aichat.demo.controller;
 
 import com.aichat.demo.dto.request.ChatRequest;
 import com.aichat.demo.service.ChatService;
-import com.aichat.demo.service.JwtService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.springframework.stereotype.Controller;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequiredArgsConstructor
 @Controller

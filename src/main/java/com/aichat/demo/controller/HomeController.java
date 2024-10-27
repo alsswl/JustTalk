@@ -20,7 +20,12 @@ public class HomeController {
   }
   @GetMapping("/mainChat")
   public String mainChat() {
-    System.out.println("hi");
     return "mainChat";
   }
+
+  @GetMapping("/reportDetail")
+  public String reportDetail() {
+    return "reportDetail";
+  }
+
 }
