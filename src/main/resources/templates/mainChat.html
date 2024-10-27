@@ -85,6 +85,7 @@
       line-height: 1.6; /* 줄 간격 설정 */
       margin: 0; /* 기본 여백 제거 */
       text-align: center; /* 텍스트 중앙 정렬 */
+      white-space: pre-line;
     }
 
     .container {
@@ -173,6 +174,7 @@
     .textarea{
       font-family: 'GmarketSansMedium', sans-serif; /* 전체 폰트와 동일하게 설정 */
       font-size: 0.8rem; /* 원하는 글씨 크기 */
+      white-space: pre-line;
     }
 
     .combined-section {
@@ -213,9 +215,7 @@
     .report-list {
       max-height: 200px; /* 스크롤 가능한 최대 높이 설정 */
       overflow-y: auto;  /* 수직 스크롤 활성화 */
-      border: 1px solid #ddd; /* 경계선 추가 (선택사항) */
-      padding: 10px;
-      background-color: #f9f9f9; /* 배경색 설정 (선택사항) */
+      padding: 10px; /* 배경색 설정 (선택사항) */
     }
 
     .report-section input {
@@ -223,6 +223,7 @@
       width: 100%; /* 입력 필드 너비를 100%로 설정 */
       margin-bottom: 10px; /* 입력 필드 사이 간격 설정 */
       padding: 8px; /* 입력 필드 안쪽 여백 설정 */
+      height: 100%;
     }
 
 
@@ -269,8 +270,6 @@
         <input id="report2" type="text" placeholder="Frame 2" disabled />
         <input id="report3" type="text" placeholder="Frame 3" disabled />
       </div>
-
-      <div class="view-more" onclick="viewMoreReports()">더보기</div>
     </div>
 
     <!-- Community Section -->
@@ -543,50 +542,50 @@
 
   function showMessage1(message) {
     var messageElement = $('<div class="message ai-message"></div>');
-    messageElement.text(message.sender + ': ' + message.content);
+    messageElement.text( message.content);
     $('#chatArea1').append(messageElement);
     $('#chatArea1').scrollTop($('#chatArea1')[0].scrollHeight); // 스크롤을 아래로
   }
   function showMessage2(message) {
     var messageElement = $('<div class="message ai-message"></div>');
-    messageElement.text(message.sender + ': ' + message.content);
+    messageElement.text( message.content);
     $('#chatArea2').append(messageElement);
     $('#chatArea2').scrollTop($('#chatArea2')[0].scrollHeight); // 스크롤을 아래로
   }
   function showMessage3(message) {
     var messageElement = $('<div class="message ai-message"></div>');
-    messageElement.text(message.sender + ': ' + message.content);
+    messageElement.text(message.content);
     $('#chatArea3').append(messageElement);
     $('#chatArea3').scrollTop($('#chatArea3')[0].scrollHeight); // 스크롤을 아래로
   }
   function showMessage4(message) {
     var messageElement = $('<div class="message ai-message"></div>');
-    messageElement.text(message.sender + ': ' + message.content);
+    messageElement.text( message.content);
     $('#chatArea4').append(messageElement);
     $('#chatArea4').scrollTop($('#chatArea4')[0].scrollHeight); // 스크롤을 아래로
   }
 
   function showUserMessage1(message) {
     var messageElement = $('<div class="message user-message"></div>');
-    messageElement.text(message.sender + ': ' + message.content);
+    messageElement.text( message.content);
     $('#chatArea1').append(messageElement);
     $('#chatArea1').scrollTop($('#chatArea1')[0].scrollHeight); // 스크롤을 아래로
   }
   function showUserMessage2(message) {
     var messageElement = $('<div class="message user-message"></div>');
-    messageElement.text(message.sender + ': ' + message.content);
+    messageElement.text( message.content);
     $('#chatArea2').append(messageElement);
     $('#chatArea2').scrollTop($('#chatArea2')[0].scrollHeight); // 스크롤을 아래로
   }
   function showUserMessage3(message) {
     var messageElement = $('<div class="message user-message"></div>');
-    messageElement.text(message.sender + ': ' + message.content);
+    messageElement.text( message.content);
     $('#chatArea3').append(messageElement);
     $('#chatArea3').scrollTop($('#chatArea3')[0].scrollHeight); // 스크롤을 아래로
   }
   function showUserMessage4(message) {
     var messageElement = $('<div class="message user-message"></div>');
-    messageElement.text(message.sender + ': ' + message.content);
+    messageElement.text( message.content);
     $('#chatArea4').append(messageElement);
     $('#chatArea4').scrollTop($('#chatArea4')[0].scrollHeight); // 스크롤을 아래로
   }
@@ -615,7 +614,7 @@
 
   $(function () {
     // 페이지 로드 시 저장된 사용자 이름 불러오기
-    loadUsername();
+    //loadUsername();
 
     $('form').on('submit', function (e) {
       e.preventDefault();
@@ -672,8 +671,8 @@
       reports.forEach((report, index) => {
         const input = document.createElement('input');
         input.type = 'text';
-        input.value = report.animal; // 리포트의 animal 필드를 사용 (제목으로 사용)
-        input.disabled = true; // 입력 필드 비활성화
+        input.value = report.animal + ' ' + new Date(report.date).toLocaleDateString(); // 리포트의 animal 필드를 사용 (제목으로 사용)
+        input.readOnly = true; // 입력 필드 비활성화
         input.dataset.reportId = report.reportId; // data-report-id에 리포트 ID 저장
         input.addEventListener('click', function() {
           fetchReportDetails(report.reportId); // 리포트 클릭 시 상세 정보 요청
@@ -687,22 +686,24 @@
     }
   }
 
-
   // 리포트 상세 정보 요청
   async function fetchReportDetails(reportId) {
     try {
-      const token = localStorage.getItem('token'); // 로컬스토리지에서 토큰 가져오기
+      const token = localStorage.getItem('jwtToken'); // 로컬스토리지에서 토큰 가져오기
 
       const response = await fetch(`/api/reports/${reportId}`, {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${token}`, // 토큰을 Authorization 헤더에 추가
+          'Authorization': `${token}`, // 토큰을 Authorization 헤더에 추가
           'Content-Type': 'application/json'
         }
       });
 
       const reportDetails = await response.json(); // 상세 정보를 JSON 형식으로 변환
       console.log(reportDetails); // 상세 정보 출력 혹은 필요한 처리를 여기에 구현
+      // 로컬 스토리지에 reportDetails를 저장
+      localStorage.setItem('reportDetails', JSON.stringify(reportDetails));
+      window.location.href = "/reportDetail";
     } catch (error) {
       console.error("리포트 상세 정보를 불러오는 중 오류 발생:", error);
     }
